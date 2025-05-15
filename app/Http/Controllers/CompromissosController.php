@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CompromissoRequest;
 use App\Models\Compromisso;
 use Illuminate\Http\Request;
 
@@ -13,9 +14,16 @@ class CompromissosController extends Controller
         return view("compromissos/index", compact("compromissos"));
     }
 
-    public function salvar(Request $request){
-    
-        Compromisso::create($request->all());
+    public function salvar(CompromissoRequest $request){
+        
+        //Valisação sem a request
+
+        // $dados = $request->validate([
+        //     "titulo"=> "required | min:3", 
+        //     "quando"=> "required",
+        // ]);
+        $dados = $request->validated();
+        Compromisso::create($dados);
 
         return redirect()->route('compromissos');
     }

@@ -1,9 +1,17 @@
 <h1> Lista de compromissos</h1>
 <hr>
+@if($errors->any())
+    <h3 style="color:red">Erro!</h3>
+    <ul>
+        @foreach ($errors->all() as $erro)
+            <li>{{ $erro }}</li>
+        @endforeach
+    </ul>
+@endif
 <form action="{{ route('compromissos.salvar') }}" method="post">
     @csrf
-    <input type="text" name="titulo" placeholder="escreve aqui tua tarefa">
-    <input type="datetime-local" name="quando">
+    <input type="text" name="titulo" value ="{{ old('titulo') }}"placeholder="escreve aqui tua tarefa">
+    <input type="datetime-local" value ="{{ old('quando') }}" name="quando">
     <input type="submit" name="Gravar">
     </form>
 <hr>
